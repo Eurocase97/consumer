@@ -30,7 +30,7 @@ public class PokemonApiConsumerService {
     }
 
     public  ResponseEntity<String> usePokemonEndpoint(String token, String pokemonName) {
-        String uri = baseUrl + "pokemon/" + pokemonName;
+        String uri = baseUrl + "pokemon/" + pokemonName.toLowerCase();
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity("");
         ResponseEntity<String> response = restTemplate.exchange(
                 uri, HttpMethod.GET, requestEntity , String.class);
@@ -42,6 +42,5 @@ public class PokemonApiConsumerService {
         log.error("Error in user creation - httpStatus was: {}", response.getStatusCode());
         throw new RuntimeException("Error");
     }
-
 
 }
