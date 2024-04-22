@@ -29,9 +29,8 @@ public class PokemonApiConsumerService {
         return headers;
     }
 
-    public  ResponseEntity<String> usePokemonEndpoint(String token) {
-        String uri = baseUrl + "pokemon/ditto";
-        //HttpEntity<Void> requestEntity = new HttpEntity<>(this.buildAuthToken(""));
+    public  ResponseEntity<String> usePokemonEndpoint(String token, String pokemonName) {
+        String uri = baseUrl + "pokemon/" + pokemonName;
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity("");
         ResponseEntity<String> response = restTemplate.exchange(
                 uri, HttpMethod.GET, requestEntity , String.class);
@@ -44,8 +43,5 @@ public class PokemonApiConsumerService {
         throw new RuntimeException("Error");
     }
 
-    public Pokemon ParsePokemonFromJson(ResponseEntity<String> response){
-        Pokemon pokemon= new Pokemon();
-        return pokemon;
-    }
+
 }
