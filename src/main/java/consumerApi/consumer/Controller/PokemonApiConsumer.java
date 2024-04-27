@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
-@RequestMapping("/consumer")
+@RequestMapping("/consumer/")
 public class PokemonApiConsumer {
 
     private final PokemonApiConsumerService pokemonApiConsumerService;
@@ -20,8 +22,13 @@ public class PokemonApiConsumer {
         this.pokemonApiConsumerService = pokemonApiConsumerService;
     }
 
-    @GetMapping("/{pokemonName}")
+    @GetMapping("{pokemonName}")
     public ResponseEntity<String> UsePokemonEndpoint(@PathVariable String pokemonName) {
         return pokemonApiConsumerService.usePokemonEndpoint("", pokemonName);
+    }
+
+    @GetMapping("abilities/{pokemonName}")
+    public String getAbilities(@PathVariable String pokemonName) throws IOException {
+        return pokemonApiConsumerService.getAbilities("", pokemonName);
     }
 }
