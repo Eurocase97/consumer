@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Dob{
     public Date date;
     public int age;
