@@ -1,5 +1,6 @@
 package consumerApi.consumer.Controller;
 
+import consumerApi.consumer.model.Results;
 import consumerApi.consumer.service.PokemonApiConsumerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,5 +31,10 @@ public class PokemonApiConsumer {
     @GetMapping("abilities/{pokemonName}")
     public String getAbilities(@PathVariable String pokemonName) throws IOException {
         return pokemonApiConsumerService.getAbilities("", pokemonName);
+    }
+
+    @GetMapping("woman")
+    public Results getRandomWoman() throws IOException {
+        return pokemonApiConsumerService.getRandomWoman("");
     }
 }
