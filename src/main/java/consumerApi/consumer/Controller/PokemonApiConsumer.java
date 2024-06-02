@@ -34,7 +34,7 @@ public class PokemonApiConsumer {
     }
 
     @GetMapping("woman")
-    public Results getRandomWoman() throws IOException {
+    public  ResponseEntity<String> getRandomWoman() throws IOException {
         return pokemonApiConsumerService.getRandomWoman("");
     }
 }

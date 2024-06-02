@@ -1,5 +1,6 @@
 package consumerApi.consumer.service;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +40,7 @@ public class PokemonApiConsumerService {
         log.error("Error in user creation - httpStatus was: {}", response.getStatusCode());
         throw new RuntimeException("Error");
     }
-/*Do still do not work*/
+/*Still do not work*/
     public  String getAbilities(String token, String pokemonName) throws JsonProcessingException {
         String uri = baseUrl + "pokemon/" + pokemonName.toLowerCase();
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity("");
@@ -60,20 +61,21 @@ public class PokemonApiConsumerService {
         throw new RuntimeException("Error");
     }
 
-    public  Results  getRandomWoman(String token) throws JsonProcessingException {
+    public   ResponseEntity<String>  getRandomWoman(String token) throws JsonProcessingException {
         String uri = "https://randomuser.me/api/?gender=female";
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity("");
         ResponseEntity<String> response = restTemplate.exchange(
                 uri, HttpMethod.GET, requestEntity , String.class);
 
         if (response.getStatusCode().is2xxSuccessful()) {
+
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(response.getBody(), Results.class);
-          /*
+            Results results= objectMapper.readValue(response.getBody(), Results.class);
+
             if(results.getId() == null){
                 log.info("no funciona");
             }
-            return response;*/
+            return response;
         }
         log.error("Error in user creation - httpStatus was: {}", response.getStatusCode());
         throw new RuntimeException("Error");
