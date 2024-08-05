@@ -1,6 +1,5 @@
 package consumerApi.consumer.Controller;
 
-import consumerApi.consumer.model.Results;
 import consumerApi.consumer.service.PokemonApiConsumerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

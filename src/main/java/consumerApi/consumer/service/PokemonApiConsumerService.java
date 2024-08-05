@@ -1,11 +1,11 @@
 package consumerApi.consumer.service;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import consumerApi.consumer.Controller.PokemonApiConsumer;
 import consumerApi.consumer.model.Abilities;
+import consumerApi.consumer.model.Result;
 import consumerApi.consumer.model.Results;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +61,7 @@ public class PokemonApiConsumerService {
         throw new RuntimeException("Error");
     }
 
-    public   ResponseEntity<String>  getRandomWoman(String token) throws JsonProcessingException {
+    public   ResponseEntity<String>   getRandomWoman(String token) throws JsonProcessingException {
         String uri = "https://randomuser.me/api/?gender=female";
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity("");
         ResponseEntity<String> response = restTemplate.exchange(
@@ -70,11 +70,12 @@ public class PokemonApiConsumerService {
         if (response.getStatusCode().is2xxSuccessful()) {
 
             ObjectMapper objectMapper = new ObjectMapper();
-            Results results= objectMapper.readValue(response.getBody(), Results.class);
+            Results result =  objectMapper.readValue(response.getBody(), Results.class);
 
-            if(results.getId() == null){
-                log.info("no funciona");
+            if(!result.getResults().get(0).toString().isEmpty()){
+                log.info("You created: "+ result.getResults().get(0).toString());
             }
+
             return response;
         }
         log.error("Error in user creation - httpStatus was: {}", response.getStatusCode());
